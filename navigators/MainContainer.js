@@ -2,6 +2,7 @@ import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { StyleSheet } from "react-native";
 
 // Screens
 import HomeScreen from "../screens/trangchu/HomeScreen";
@@ -18,7 +19,7 @@ const Tab = createBottomTabNavigator();
 
 function MainContainer() {
   return (
-    <NavigationContainer>
+    <NavigationContainer independent={true}>
       <Tab.Navigator
         initialRouteName={homeName}
         screenOptions={({ route }) => ({
@@ -39,14 +40,13 @@ function MainContainer() {
             return <Ionicons name={iconName} size={size} color={color} />;
           },
         })}
-        tabBarOptions={{
-          activeTintColor: "tomato",
-          inactiveTintColor: "grey",
-          labelStyle: { paddingBottom: 10, fontSize: 10 },
-          style: { padding: 10, height: 70 },
-        }}
+        activeColor="#e91e63"
+        inactiveColor="#000000"
+        barStyle={styles.tabBar}
+        labeled={true}
+        shifting={true}
       >
-        <Tab.Screen name={homeName} component={HomeScreen} />
+        <Tab.Screen name={homeName} options={{ headerShown: false }} component={HomeScreen} />
         <Tab.Screen name={detailsName} component={DetailsScreen} />
         <Tab.Screen name={settingsName} component={SettingScreen} />
         <Tab.Screen name={personalName} component={PersonalScreen} />
@@ -54,5 +54,11 @@ function MainContainer() {
     </NavigationContainer>
   );
 }
-
+const styles = StyleSheet.create({
+  tabBar: {
+    backgroundColor: "#ffffff",
+    paddingBottom: 5,
+    height: 65,
+  },
+});
 export default MainContainer;
