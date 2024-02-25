@@ -8,7 +8,7 @@ export default function PersonalScreen({ navigation }) {
         onPress={() => navigation.navigate("Home")}
         style={{ fontSize: 26, fontWeight: "bold" }}
       >
-        Settings Screen
+        Settings 
       </Text>
     </View>
   );

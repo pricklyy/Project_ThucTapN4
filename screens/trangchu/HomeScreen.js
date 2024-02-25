@@ -1,6 +1,6 @@
 import * as React from "react";
 import { StyleSheet, View, SafeAreaView } from 'react-native';
-import HeaderHome from "../../components/Homecomponent/Header/index";
+// import HeaderHome from "../../components/Homecomponent/Header/index";
 // import { ScrollView } from 'react-native-gesture-handler';
 
 export default function HomeScreen({ navigation }) {
@@ -8,7 +8,7 @@ export default function HomeScreen({ navigation }) {
     <SafeAreaView style={styles.container}>
       
       <View style={styles.viewHeader}>
-          <HeaderHome />
+          {/* <HeaderHome /> */}
       </View>
     {/* <ScrollView>
     <View style={styles.viewTrending}>

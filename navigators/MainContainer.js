@@ -6,7 +6,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 // Screens
 import HomeScreen from "../screens/trangchu/HomeScreen";
 import DetailsScreen from "../screens/trangchu/DetailsScreen";
-import SettingScreen from "../screens/trangchu/SettingScreen";
+import SettingScreen from "../screens/trangchu/RewardsScreen ";
 import PersonalScreen from "../screens/trangchu/PersonalScreen";
 //Screen names
 const homeName = "Trang chủ";
