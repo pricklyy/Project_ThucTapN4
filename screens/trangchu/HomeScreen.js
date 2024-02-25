@@ -1,14 +1,22 @@
 import * as React from "react";
 import { StyleSheet, View, SafeAreaView } from 'react-native';
-// import HeaderHome from "../../components/Homecomponent/Header/index";
-// import { ScrollView } from 'react-native-gesture-handler';
+// <<<<<<< RewardsScreen
+// // import HeaderHome from "../../components/Homecomponent/Header/index";
+// =======
+// //import HeaderHome from "../../components/Homecomponent/Header/index";
+// >>>>>>> dev
+// // import { ScrollView } from 'react-native-gesture-handler';
 
 export default function HomeScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       
       <View style={styles.viewHeader}>
-          {/* <HeaderHome /> */}
+// <<<<<<< RewardsScreen
+//           {/* <HeaderHome /> */}
+// =======
+        
+// >>>>>>> dev
       </View>
     {/* <ScrollView>
     <View style={styles.viewTrending}>
