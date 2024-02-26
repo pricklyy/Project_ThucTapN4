@@ -12,11 +12,10 @@ export default function HomeScreen({ navigation }) {
     <SafeAreaView style={styles.container}>
       
       <View style={styles.viewHeader}>
-// <<<<<<< RewardsScreen
-//           {/* <HeaderHome /> */}
-// =======
+           {/* <HeaderHome /> */}
+
         
-// >>>>>>> dev
+
       </View>
     {/* <ScrollView>
     <View style={styles.viewTrending}>
