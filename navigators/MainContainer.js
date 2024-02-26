@@ -46,7 +46,7 @@ function MainContainer() {
         labeled={true}
         shifting={true}
       >
-        <Tab.Screen name={homeName} options={{ headerShown: false }} component={HomeScreen} />
+        <Tab.Screen name={homeName}  component={HomeScreen} />
         <Tab.Screen name={detailsName} component={DetailsScreen} />
         <Tab.Screen name={settingsName} component={SettingScreen} />
         <Tab.Screen name={personalName} component={PersonalScreen} />
