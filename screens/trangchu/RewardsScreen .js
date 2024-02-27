@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, FlatList, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import NFTCard from '../../components/NFTCard';
-import RewardHeader from '../../components/ReawardHeader'; // Make sure the component name is correctly spelled
+import RewardHeader from '../../components/ReawardHeader'; 
 
 const RewardsScreen = () => {
   const points = 750;
@@ -73,14 +73,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10, 
   },
   row: {
-    justifyContent: 'space-between', // This will distribute space evenly between the two columns
+    justifyContent: 'space-between', 
     marginBottom: 20,
   },
   headerSubtitle: {
     paddingHorizontal: 20,
     fontSize: 16,
     color: '#555',
-    marginBottom: 20, // Added margin to separate from the grid of NFTs
+    marginBottom: 20, 
   },
 });
 

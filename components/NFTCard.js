@@ -9,7 +9,7 @@ const NFTCard = ({ name, points, imageUri, onPress }) => {
       <View style={styles.pointsContainer}>
       <Text style={styles.points}>{points}</Text>
         <Image
-          source={require('../assets/diem.png')} // Replace with your points icon image path
+          source={require('../assets/diem.png')} 
           style={styles.pointsIcon}
         />
       </View>
@@ -56,11 +56,11 @@ const styles = StyleSheet.create({
   points: {
     fontSize: 14,
     color: '#666',
-    flex: 1, // Take up remaining space
+    flex: 1, 
   },
   redeemButton: {
     flexDirection: 'row',
-    backgroundColor: '#FFD700', // Gold color for the button
+    backgroundColor: '#FFD700', 
     borderRadius: 15,
     paddingVertical: 5,
     paddingHorizontal: 15,
@@ -82,14 +82,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   pointsIcon: {
-    width: 20,  // Set the width of your icon
-    height: 20, // Set the height of your icon
-    marginRight: 5, // Add some margin between the icon and the points text
+    width: 20,  
+    height: 20, 
+    marginRight: 5,
   },
   points: {
     fontSize: 14,
     color: '#666',
-    // remove marginTop if you don't need space above the points
+   
   },
   
 });
