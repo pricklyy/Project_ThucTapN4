@@ -3,11 +3,20 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 
 const NFTCard = ({ name, points, imageUri, onPress }) => {
   return (
-    <TouchableOpacity style={styles.card} onPress={onPress}>
+    <View style={styles.card}>
       <Image source={imageUri} style={styles.image} />
       <Text style={styles.name}>{name}</Text>
-      <Text style={styles.points}>{`${points} điểm`}</Text>
-    </TouchableOpacity>
+      <View style={styles.pointsContainer}>
+      <Text style={styles.points}>{points}</Text>
+        <Image
+          source={require('../assets/diem.png')} 
+          style={styles.pointsIcon}
+        />
+      </View>
+      <TouchableOpacity style={styles.redeemButton} onPress={onPress}>
+        <Text style={styles.redeemText}>Đổi ngay</Text>
+      </TouchableOpacity>
+    </View>
   );
 };
 
@@ -24,22 +33,65 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 2,
     elevation: 4,
+    width: 170, 
   },
   image: {
-    width: 150,
-    height: 150,
+    width: '100%',
+    height: 120, 
     borderRadius: 8,
   },
   name: {
     fontSize: 16,
     fontWeight: 'bold',
     marginTop: 5,
+    textAlign: 'center',
+  },
+  bottomContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+    marginTop: 5,
   },
   points: {
     fontSize: 14,
     color: '#666',
-    marginTop: 3,
+    flex: 1, 
   },
+  redeemButton: {
+    flexDirection: 'row',
+    backgroundColor: '#FFD700', 
+    borderRadius: 15,
+    paddingVertical: 5,
+    paddingHorizontal: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation: 3,
+  },
+  redeemText: {
+    fontSize: 14,
+    color: '#fff', 
+    fontWeight: 'bold',
+  },
+  redeemIcon: {
+    width: 20,
+    height: 20, 
+    marginLeft: 5,
+  },  pointsContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  pointsIcon: {
+    width: 20,  
+    height: 20, 
+    marginRight: 5,
+  },
+  points: {
+    fontSize: 14,
+    color: '#666',
+   
+  },
+  
 });
 
 export default NFTCard;
