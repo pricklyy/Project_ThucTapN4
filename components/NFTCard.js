@@ -63,10 +63,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFD700', 
     borderRadius: 15,
     paddingVertical: 5,
-    paddingHorizontal: 15,
+    paddingHorizontal: 45,
     alignItems: 'center',
     justifyContent: 'center',
     elevation: 3,
+    marginTop:5
   },
   redeemText: {
     fontSize: 14,
