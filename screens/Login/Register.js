@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, ScrollView, Image } from 'react-native'
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, ScrollView, Image, ToastAndroid } from 'react-native'
 import { isValidEmail, isValidHoTen, isValidPassword } from '../../validate/Validations'
+import axios from 'axios';
 
+const REGISTER_API = 'http://192.168.1.114:8080/v1/auth/register'
 const Register = (props) => {
-    console.log(props)
     const { navigation, route } = props;
 
     //validate
@@ -16,11 +17,58 @@ const Register = (props) => {
     const [password, setPassword] = useState('')
     const [rePassword, setrePassword] = useState('')
     const [hoTen, sethoTen] = useState('')
+    const [users, setUsers] = useState([])
 
     const isValidationOK = () => email.length > 0 && password.length > 0 && hoTen.length > 0
         && isValidEmail(email) == true
         && isValidPassword(password) == true
         && isValidHoTen(hoTen) == true
+
+
+    const handleRegister = async () => {
+        try {
+            const randomNumber = Math.floor(Math.random() * 10000000000);
+            const randomString = Math.random().toString(36).substring(7);
+
+            const response = await fetch(REGISTER_API, {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: password,
+                    username: hoTen,
+                    numberPhone: randomNumber,
+                    xKey: randomString,
+                    wallID: randomString
+                }),
+            });
+
+            console.log('response: ' + response.password)
+
+            if (!response.ok) {
+                const message = `An error has occurred: ${response.status}`;
+                ToastAndroid.show(message, ToastAndroid.LONG);
+                console.error(message);
+                return;
+            }
+
+            if (response.status === 200) {
+                console.log("response: " + response.status);
+                ToastAndroid.show('Đăng ký thành công', ToastAndroid.LONG);
+                navigation.replace('Login');
+
+                return;
+            }
+
+        } catch (e) {
+            console.error(e);
+            ToastAndroid.show('An error occurred.', ToastAndroid.LONG);
+        }
+    }
+
     return (
         <ScrollView>
             <View
@@ -132,7 +180,8 @@ const Register = (props) => {
                         if (password !== rePassword) {
                             alert('Vui lòng kiểm tra lại mật khẩu')
                         } else {
-                            navigation.navigate('Login')
+
+                            handleRegister()
                         }
                     }}
                     disabled={isValidationOK() == false}
