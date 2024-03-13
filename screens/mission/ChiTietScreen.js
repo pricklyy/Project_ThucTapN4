@@ -1,61 +1,92 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, TouchableOpacity, View ,Image} from 'react-native'
+import React ,{useState}from 'react'
 import { FontAwesome } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import LottieView from 'lottie-react-native';
 
-const ChiTietScreen = () => {
+
+const ChiTietScreen = ({ route }) => {
     const navigation = useNavigation();
+    // const { title, description, date, level, point } = route.params;
+
+    const [showLottie, setShowLottie] = useState(false);
+
+    const goToStatus = (status) => {
+        setShowLottie(true);
+    
+        // Set a timeout to navigate to Status Screen after 2 seconds
+        setTimeout(() => {
+          setShowLottie(false);
+          navigation.navigate('Doing', {title,description,date,level,point});
+        }, 2000);
+      };
+
+    //   useFocusEffect(
+    //     React.useCallback(()=> {
+    //         console.log('Refreshing...');
+    //     },[])
+    //   )
+      
     return (
         <View>
-            <Text style={styles.text}>Nhiệm vụ 1</Text>
-            <Text style={styles.text1}><FontAwesome name="calendar" size={13} color="red" /> 24/2/2024</Text>
-            <Text style={styles.text1}>Mức độ: vừa</Text>
-            <Text style={styles.text1}>Thưởng: +36 <AntDesign name="star" size={15} color="yellow" /></Text>
-
-            <Text style={styles.text}>Mô tả :</Text>
-            <View>
-                <Text style={styles.text1}>
-                    Để quản lý nhân sự hiệu quả, gia tăng năng suất làm việc thì không chỉ cần đến bản mô tả công việc mà còn phải ứng dụng phần mềm để tối ưu quy trình quản lý. Với phần mềm HRM 1Office, các doanh nghiệp sẽ được hỗ trợ bởi những tính năng ưu việt nhất kế thừa từ những thành tựu chuyển đổi số:
-                </Text>
-            </View>
-
+        
+            {/* <Text style={styles.textMission}>{title}</Text>
+            <Text style={styles.textcc}><FontAwesome name="calendar" size={13} color="red" /> {date}</Text>
+            <Text style={styles.textcc}>Mức độ: {level}</Text>
+            <Text style={styles.textcc}>Thưởng: {point} <Image
+          source={require('../../assets/diem.png')}/></Text>
+            <Text style={styles.textcc}>Mô tả: {description}</Text> */}
             <View style={styles.button}>
-            <TouchableOpacity onPress={()=> navigation.navigate('Doing')}>
-                <Text style={styles.textButton}>Nhận</Text>
+            <TouchableOpacity onPress={()=> goToStatus('Active')}>
+            <Text style={styles.textbutton}>Nhận</Text>
             </TouchableOpacity>
-            </View>
             
+            {showLottie && (
+        <LottieView
+          source={require('../../assets/done.json')}
+          autoPlay
+          loop={false} style={styles.lottie}
+        />
+      )}
         </View>
+        </View>
+        
     )
 }
 
 export default ChiTietScreen
 
 const styles = StyleSheet.create({
-    text: {
-        fontSize: 20,
+    
+    textMission: {
+        fontSize: 24,
         fontWeight: 'bold',
-        margin: 15,
-
-    },
-    text1: {
         marginLeft: 15,
+        marginTop: 10,
+    },
+    textcc: {
+        marginLeft: 15,
+        fontSize: 15,
     },
     button : {
-        width :100,
-        height : 40,
-        backgroundColor : '#00A3FF',
+        backgroundColor: '#0094ff',
+        width:100,
+        height: 40,
         borderRadius : 20,
-        justifyContent: 'center',
-        marginLeft : 140,
-        
-
+        justifyContent:'center',
+        alignItems:'center',
+        marginLeft:140,
+        marginTop: 20,
     },
-    textButton : {
-        fontWeight : 'bold',
-        textAlign : 'center',
-        fontSize : 20
+    textbutton : {
+        color:'#fff',
+        fontWeight:'bold',
+        fontSize:15,
+    },
+    lottie : {
+        width: 200,
+        height: 200,
         
     }
 
