@@ -7,8 +7,8 @@ import axios from 'axios';
 const RewardsScreen = () => {
   const points = 75;
   const [nfts, setNfts] = useState([]);
-  const xKey = "r_dyunuuAWO7c5DU"; // Thay thế bằng x-api-key của bạn
-  const wallID = "7VhpHtwVWdUPoMGVyTaC6XqHs7SfShAr8963fqUscFsu"; // Thay thế bằng địa chỉ ví của bạn
+  const xKey = "2neS76iK3K9IVD5y"; // Thay thế bằng x-api-key của bạn
+  const wallID = "5wbGvpCsCznhoRCxWaJaJbtaXsiph55rQPGR7LBKaQe2"; // Thay thế bằng địa chỉ ví của bạn
   const network = "devnet"; // Sử dụng mạng devnet
 
   useEffect(() => {
@@ -20,7 +20,7 @@ const RewardsScreen = () => {
             "Content-Type": "application/json",
             "x-api-key": xKey,
           },
-        });
+        }); 
         const nftData = response.data.result.map((item) => ({
           id: item.mint,
           name: item.name,
