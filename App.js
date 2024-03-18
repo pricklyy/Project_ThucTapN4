@@ -7,7 +7,7 @@ import Login from './screens/Login/Login';
 import Register from './screens/Login/Register';
 export default function App() {
   return (
-    <LoginNavigation />
+    <MainContainer />
   );
 }
 

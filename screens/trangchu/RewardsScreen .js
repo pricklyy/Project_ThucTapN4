@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, FlatList, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { View, FlatList, StyleSheet, Text, TouchableOpacity,Alert } from 'react-native';
 import NFTCard from '../../components/NFTCard';
 import RewardHeader from '../../components/ReawardHeader';
 import axios from 'axios'; 
@@ -7,14 +7,15 @@ import axios from 'axios';
 const RewardsScreen = () => {
   const points = 75;
   const [nfts, setNfts] = useState([]);
-  const xKey = "2neS76iK3K9IVD5y"; // Thay thế bằng x-api-key của bạn
-  const wallID = "5wbGvpCsCznhoRCxWaJaJbtaXsiph55rQPGR7LBKaQe2"; // Thay thế bằng địa chỉ ví của bạn
+  const xKey = "r_dyunuuAWO7c5DU"; // Thay thế bằng x-api-key chịu phí
+  const adminWallID = "7VhpHtwVWdUPoMGVyTaC6XqHs7SfShAr8963fqUscFsu"; // Địa chỉ ví Admin chứa NFTs
+  const toAddress = "CfHt2GWCKmPJFfmWxishL2ERxbDkTioqX2E4pBNZzs3H";// Địa chỉ ví người dùng nhận NFT sẽ lấy từ account info
   const network = "devnet"; // Sử dụng mạng devnet
 
   useEffect(() => {
     const fetchNFTs = async () => {
       try {
-        const nftUrl = `https://api.shyft.to/sol/v1/nft/read_all?network=${network}&address=${wallID}`;
+        const nftUrl = `https://api.shyft.to/sol/v1/nft/read_all?network=${network}&address=${adminWallID}`;
         const response = await axios.get(nftUrl, {
           headers: {
             "Content-Type": "application/json",
@@ -37,14 +38,45 @@ const RewardsScreen = () => {
     fetchNFTs();
   }, []);
 
+  const transferNFT = async (tokenAddress, adminWallID, toAddress) => {
+    console.log(`Transferring NFT with tokenAddress: ${tokenAddress}`);
+    const transferUrl = "https://api.shyft.to/sol/v1/nft/transfer_detach";
+    const data = JSON.stringify({
+      network: "devnet",
+      token_address: tokenAddress,
+      from_address: adminWallID,
+      to_address: toAddress,
+      transfer_authority: true,
+      fee_payer: adminWallID, 
+    });
+  
+    try {
+      const response = await axios.post(transferUrl, data, {
+        headers: {
+          "x-api-key": xKey,
+          "Content-Type": "application/json",
+        },
+      });
+      console.log(response.data);
+      Alert.alert("Success", "NFT transferred successfully");
+    } catch (error) {
+      console.error(error);
+      Alert.alert("Error", "Failed to transfer NFT");
+    }
+  };
+  
+
   const renderNFTCard = ({ item }) => (
     <NFTCard
       name={item.name}
       points={item.points}
       imageUri={item.imageUri}
       onPress={() => console.log('NFT pressed', item.id)}
+      onTransferPress={() => transferNFT(item.id, adminWallID, toAddress)}
     />
   );
+  
+  
 
   return (
     <View style={styles.container}>

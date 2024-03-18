@@ -1,24 +1,25 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 
-const NFTCard = ({ name, points, imageUri, onPress }) => {
+const NFTCard = ({ name, points, imageUri, onPress, onTransferPress }) => {
   return (
     <View style={styles.card}>
       <Image source={imageUri} style={styles.image} />
       <Text style={styles.name}>{name}</Text>
       <View style={styles.pointsContainer}>
-      <Text style={styles.points}>{points}</Text>
+        <Text style={styles.points}>{points}</Text>
         <Image
           source={require('../assets/diem.png')} 
           style={styles.pointsIcon}
         />
       </View>
-      <TouchableOpacity style={styles.redeemButton} onPress={onPress}>
+      <TouchableOpacity style={styles.redeemButton} onPress={onTransferPress || onPress}>
         <Text style={styles.redeemText}>Đổi ngay</Text>
       </TouchableOpacity>
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   card: {
@@ -63,10 +64,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFD700', 
     borderRadius: 15,
     paddingVertical: 5,
-    paddingHorizontal: 15,
+    paddingHorizontal: 45,
     alignItems: 'center',
     justifyContent: 'center',
     elevation: 3,
+    marginTop:5
   },
   redeemText: {
     fontSize: 14,
