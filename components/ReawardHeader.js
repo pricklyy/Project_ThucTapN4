@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 
 const RewardHeader = ({ points}) => {
-  const nextRewardAt = 1000;
+  const nextRewardAt = 100;
   const statusBarWidth = (points / nextRewardAt) * 100;
 
   return (
@@ -11,7 +11,7 @@ const RewardHeader = ({ points}) => {
       <View style={styles.pointsContainer}>
         <Text style={styles.pointsText}>{`${points} `}
         <Image
-          source={require('../assets/diem.png')} // Replace with your points icon image path
+          source={require('../assets/diem.png')} 
           style={styles.pointsIcon}
         /> </Text>
         

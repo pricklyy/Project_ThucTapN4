@@ -1,19 +1,41 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, FlatList, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import NFTCard from '../../components/NFTCard';
-import RewardHeader from '../../components/ReawardHeader'; 
+import RewardHeader from '../../components/ReawardHeader';
+import axios from 'axios'; 
 
 const RewardsScreen = () => {
-  const points = 750;
-  // Example data for NFTs
-  const nfts = [
-    { id: 'nft1', name: 'Proscenium #43', points: 750, imageUri: require('../../assets/nft1.png') },
-    { id: 'nft2', name: 'Dobermann at Dusk', points: 369, imageUri: require('../../assets/nft2.png') },
-    { id: 'nft3', name: 'Vision of Harmony', points: 690, imageUri: require('../../assets/nft2.png') },
-    { id: 'nft4', name: 'Proscenium #43', points: 750, imageUri: require('../../assets/nft1.png') },
+  const points = 75;
+  const [nfts, setNfts] = useState([]);
+  const xKey = "2neS76iK3K9IVD5y"; // Thay thế bằng x-api-key của bạn
+  const wallID = "5wbGvpCsCznhoRCxWaJaJbtaXsiph55rQPGR7LBKaQe2"; // Thay thế bằng địa chỉ ví của bạn
+  const network = "devnet"; // Sử dụng mạng devnet
 
-    // ... more NFTs
-  ];
+  useEffect(() => {
+    const fetchNFTs = async () => {
+      try {
+        const nftUrl = `https://api.shyft.to/sol/v1/nft/read_all?network=${network}&address=${wallID}`;
+        const response = await axios.get(nftUrl, {
+          headers: {
+            "Content-Type": "application/json",
+            "x-api-key": xKey,
+          },
+        }); 
+        const nftData = response.data.result.map((item) => ({
+          id: item.mint,
+          name: item.name,
+          points: 100, // Giả sử mỗi NFT cần 100 điểm
+          imageUri: { uri: item.image_uri },
+        }));
+        setNfts(nftData);
+      } catch (error) {
+        console.log(error);
+        Alert.alert("Error", "Unable to fetch NFTs");
+      }
+    };
+
+    fetchNFTs();
+  }, []);
 
   const renderNFTCard = ({ item }) => (
     <NFTCard
@@ -38,7 +60,7 @@ const RewardsScreen = () => {
       <FlatList
         data={nfts}
         renderItem={renderNFTCard}
-        keyExtractor={item => item.id}
+        keyExtractor={(item) => item.id.toString()}
         numColumns={2}
         columnWrapperStyle={styles.row}
         contentContainerStyle={styles.contentContainer}
@@ -70,17 +92,17 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
   },
   contentContainer: {
-    paddingHorizontal: 10, 
+    paddingHorizontal: 10,
   },
   row: {
-    justifyContent: 'space-between', 
+    justifyContent: 'space-between',
     marginBottom: 20,
   },
   headerSubtitle: {
     paddingHorizontal: 20,
     fontSize: 16,
     color: '#555',
-    marginBottom: 20, 
+    marginBottom: 20,
   },
 });
 

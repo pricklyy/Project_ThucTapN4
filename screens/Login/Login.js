@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, Keyboard, ScrollView } from 'react-native'
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Keyboard, ScrollView, ToastAndroid } from 'react-native'
 import { isValidEmail, isValidPassword } from '../../validate/Validations'
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
-
+const SIGNIN_API = 'http://192.168.1.109:3000/Api/login';
 const Login = (props) => {
-    console.log(props);
     const { navigation } = props;
 
     //validate
@@ -20,6 +20,31 @@ const Login = (props) => {
         && isValidEmail(email) == true
         && isValidPassword(password) == true
 
+    const handleLogin = async () => {
+        try {
+            const response = await axios.post(SIGNIN_API, {
+
+                email: email,
+                password: password
+
+            });
+            if (response.status === 200) {
+                if (response.data) {
+                    ToastAndroid.show('Đăng nhập thành công', ToastAndroid.SHORT);
+
+
+                    navigation.replace('MainContainer')
+                } else {
+                    ToastAndroid.show('Đăng nhập thất bại', ToastAndroid.SHORT);
+                }
+            } else {
+                ToastAndroid.show('Đăng nhập thất bại', ToastAndroid.SHORT);
+            }
+        } catch (err) {
+            console.log(err)
+            ToastAndroid.show('Đã xảy ra lỗi', ToastAndroid.SHORT);
+        }
+    }
     return (
         <ScrollView
             style={{
@@ -96,7 +121,7 @@ const Login = (props) => {
                     }}>{errorPassword}</Text>
 
                 <TouchableOpacity
-                    onPress={() => navigation.replace('MainContainer')}
+                    onPress={handleLogin}
 
                     disabled={isValidationOK() == false}
                     style={[styles.btnLogin, {
