@@ -9,7 +9,7 @@ import DoneScreen from '../mission/DoneScreen'
 import ChiTietScreen from '../mission/ChiTietScreen';
 export default function DetailsScreen() {
     return (
-        <Tab.Navigator>
+    <Tab.Navigator>
       <Tab.Screen name='All' component={AllScreen} options={{tabBarLabel:'Tất cả'}}/>
       <Tab.Screen name='Doing' component={DoingScreen} options={{tabBarLabel:'Đang làm'}}/>
       <Tab.Screen name='Done' component={DoneScreen} options={{tabBarLabel:'Hoàn thành'}}/>
