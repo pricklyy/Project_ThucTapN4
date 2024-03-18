@@ -4,7 +4,7 @@ import { isValidEmail, isValidPassword } from '../../validate/Validations'
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const SIGNIN_API = 'http://192.168.1.109:3000/Api/login';
+const SIGNIN_API = 'http://192.168.0.234:3001/api/nguoi-dung/dang-nhap';
 const Login = (props) => {
     const { navigation } = props;
 
