@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, ScrollView, Image, ToastAndroid } from 'react-native'
-import { isValidEmail, isValidHoTen, isValidPassword } from '../../validate/Validations'
+import { isValidEmail, isValidHoTen, isValidPassword, isValidfullname } from '../../validate/Validations'
 import axios from 'axios';
 
-const REGISTER_API = 'http://192.168.1.109:3001/api/nguoi-dung/dang-ky'
+
+const REGISTER_API = 'http://192.168.0.234:3001/api/nguoi-dung/dang-ky'
+
 const Register = (props) => {
     const { navigation, route } = props;
 
@@ -11,6 +13,7 @@ const Register = (props) => {
     const [errorEmail, setErrorEmail] = useState('')
     const [errorPassword, setErrorPassword] = useState('')
     const [errorHoTen, setErrorHoTen] = useState('')
+    const [errorFullName, seterrorFullName] = useState('')
 
     //states email pass
     const [email, setEmail] = useState('')
@@ -18,11 +21,14 @@ const Register = (props) => {
     const [rePassword, setrePassword] = useState('')
     const [hoTen, sethoTen] = useState('')
     const [users, setUsers] = useState([])
+    const [fullname, setfullname] = useState('')
 
-    const isValidationOK = () => email.length > 0 && password.length > 0 && hoTen.length > 0
+    const isValidationOK = () => email.length > 0 && password.length > 0 && hoTen.length > 0 && fullname.length > 0
         && isValidEmail(email) == true
         && isValidPassword(password) == true
         && isValidHoTen(hoTen) == true
+        && isValidfullname(fullname) == true
+        
 
 
     const handleRegister = async () => {
@@ -40,9 +46,10 @@ const Register = (props) => {
                     email: email,
                     password: password,
                     username: hoTen,
-                    numberPhone: randomNumber,
-                    xKey: randomString,
-                    wallID: randomString
+                    fullname: fullname,
+                    // numberPhone: randomNumber,
+                    // xKey: randomString,
+                    // wallID: randomString
                 }),
             });
 
@@ -122,6 +129,22 @@ const Register = (props) => {
                 style={{
                     flex: 2,
                 }}>
+                     <Text
+                    style={styles.txt}>Full Name</Text>
+                <TextInput
+                    onChangeText={(text) => {
+                        seterrorFullName(isValidfullname(text) == true ? '' : '* Nhập đầy đủ họ tên')
+                        setfullname(text)
+                    }}
+                    style={[styles.txtInput]}
+                    placeholder='Nhập đầy đủ họ tên' />
+                <Text
+                    style={{
+                        marginLeft: 10,
+                        color: 'red',
+                        marginBottom: 5
+                    }}>{errorFullName}</Text>
+
                 <Text
                     style={styles.txt}>Họ Tên</Text>
                 <TextInput
