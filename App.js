@@ -5,9 +5,12 @@ import LoginNavigation from './navigators/Loginnavigation';
 import RewardsScreen from './screens/trangchu/RewardsScreen ';
 import Login from './screens/Login/Login';
 import Register from './screens/Login/Register';
+import { NhiemVuProvider } from './components/NhiemVuContext';
 export default function App() {
   return (
-    <MainContainer />
+    <NhiemVuProvider>
+    <LoginNavigation />
+    </NhiemVuProvider>
   );
 }
 

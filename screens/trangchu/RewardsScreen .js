@@ -7,8 +7,8 @@ import axios from 'axios';
 const RewardsScreen = () => {
   const points = 75;
   const [nfts, setNfts] = useState([]);
-  const xKey = "r_dyunuuAWO7c5DU"; // Thay thế bằng x-api-key chịu phí
-  const adminWallID = "7VhpHtwVWdUPoMGVyTaC6XqHs7SfShAr8963fqUscFsu"; // Địa chỉ ví Admin chứa NFTs
+  const xKey = "2neS76iK3K9IVD5y"; // Thay thế bằng x-api-key chịu phí
+  const adminWallID = "5wbGvpCsCznhoRCxWaJaJbtaXsiph55rQPGR7LBKaQe2"; // Địa chỉ ví Admin chứa NFTs
   const toAddress = "CfHt2GWCKmPJFfmWxishL2ERxbDkTioqX2E4pBNZzs3H";// Địa chỉ ví người dùng nhận NFT sẽ lấy từ account info
   const network = "devnet"; // Sử dụng mạng devnet
 

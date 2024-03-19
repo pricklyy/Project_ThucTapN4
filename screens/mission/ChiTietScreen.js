@@ -1,24 +1,27 @@
 import { StyleSheet, Text, TouchableOpacity, View ,Image} from 'react-native'
-import React ,{useState}from 'react'
+import React ,{useState,useContext}from 'react'
 import { FontAwesome } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import LottieView from 'lottie-react-native';
+import { NhiemVuContext } from '../../components/NhiemVuContext';
 
 
 const ChiTietScreen = ({ route }) => {
     const navigation = useNavigation();
-    // const { title, description, date, level, point } = route.params;
+    const { item } = route.params || {};
+
+    const { nhanNhiemVu } = useContext(NhiemVuContext);
 
     const [showLottie, setShowLottie] = useState(false);
 
     const goToStatus = (status) => {
         setShowLottie(true);
-    
+        nhanNhiemVu(item);
         // Set a timeout to navigate to Status Screen after 2 seconds
         setTimeout(() => {
           setShowLottie(false);
-          navigation.navigate('Doing', {title,description,date,level,point});
+          navigation.navigate('Doing', {item});
         }, 2000);
       };
 
@@ -30,13 +33,12 @@ const ChiTietScreen = ({ route }) => {
       
     return (
         <View>
-        
-            {/* <Text style={styles.textMission}>{title}</Text>
-            <Text style={styles.textcc}><FontAwesome name="calendar" size={13} color="red" /> {date}</Text>
-            <Text style={styles.textcc}>Mức độ: {level}</Text>
-            <Text style={styles.textcc}>Thưởng: {point} <Image
+          
+          <Text style={styles.textMission}>{item && item.tenNV}</Text>
+            <Text style={styles.textcc}>Mức độ: {item&&item.level}</Text>
+            <Text style={styles.textcc}>Thưởng: {item&&item.point} <Image
           source={require('../../assets/diem.png')}/></Text>
-            <Text style={styles.textcc}>Mô tả: {description}</Text> */}
+            <Text style={styles.textcc}>Mô tả: {item&&item.moTa}</Text>
             <View style={styles.button}>
             <TouchableOpacity onPress={()=> goToStatus('Active')}>
             <Text style={styles.textbutton}>Nhận</Text>
@@ -88,6 +90,26 @@ const styles = StyleSheet.create({
         width: 200,
         height: 200,
         
+    },
+    circle: {
+      width: 200,
+      height: 200,
+      right:20,
+      borderRadius: 100,
+      backgroundColor: '#0094ff',
+      justifyContent: 'center',
+      alignItems: 'center',
+      
+    },
+    circle1 : {
+      width: 150,
+      height: 150,
+      borderRadius: 100,
+      left: 100,
+      bottom:50,
+      backgroundColor: 'blue',
+      justifyContent: 'center',
+      alignItems: 'center',
     }
 
 })

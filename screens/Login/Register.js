@@ -3,7 +3,9 @@ import { View, Text, TextInput, StyleSheet, TouchableOpacity, ScrollView, Image,
 import { isValidEmail, isValidHoTen, isValidPassword, isValidfullname } from '../../validate/Validations'
 import axios from 'axios';
 
+
 const REGISTER_API = 'http://192.168.0.234:3001/api/nguoi-dung/dang-ky'
+
 const Register = (props) => {
     const { navigation, route } = props;
 

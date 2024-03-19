@@ -1,10 +1,13 @@
 import { StyleSheet, Text, View,Image } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState ,useContext} from 'react'
 import { FontAwesome } from '@expo/vector-icons';
 import Mission from '../../components/Mission';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { NhiemVuContext } from '../../components/NhiemVuContext';
 
 const DoneScreen = () => {
+
+  const { nhiemVuHoanThanh } = useContext(NhiemVuContext);
   // const [completeTasks,setCompleteTasks] = useState([]);
 
   // useEffect(() => {
@@ -33,14 +36,12 @@ const DoneScreen = () => {
 //     </View>
 
 
- <View>
-      {/* <Text>Completed Tasks:</Text> */}
-      {/* {completeTasks.map((task, index) => (
-        <Text key={index}>{task}</Text>
-      ))} */}
-
-      
-    </View> 
+<View>
+<Text style={styles.textMission}>Danh sách nhiệm vụ đã hoàn thành:</Text>
+{nhiemVuHoanThanh.map((item, index) => (
+  <Text style={styles.textcc} key={index}>- {item.tenNV}</Text>
+))}
+</View>
 
     
     
