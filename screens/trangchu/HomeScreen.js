@@ -21,9 +21,7 @@ export default function HomeScreen({ navigation }) {
             <TouchableOpacity>
               <Mission
               />
-              <Mission />
-              <Mission />
-              <Mission />
+             
             </TouchableOpacity>
           </View>
         </ScrollView>

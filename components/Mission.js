@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View,Image, TouchableOpacity, FlatList} from 'react-native'
+import { ScrollView, StyleSheet, Text, View,Image, TouchableOpacity, FlatList, ActivityIndicator, StatusBar} from 'react-native'
 import React, { useEffect, useState } from 'react'
 
 import { AntDesign } from '@expo/vector-icons';
@@ -7,39 +7,63 @@ import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 
 const Mission = () => {
-    const navigation = useNavigation();
-    const [data,setData] = useState([]);
 
-    useEffect(()=> {
-      fetchData();
-    },[]);
+  const navigation = useNavigation();
+  // const [data,setData] = useState([]);
+
+  // useEffect(()=> {
+  //   fetchData();
+  // },[]);
 
 
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('http://192.168.1.109:3000/Api/getAllMission');
-        setData(response.data);
-      } catch (error) {
-        console.log('Error:',error);
-      }
+  // const fetchData = async () => {
+  //   try {
+  //     const response = await axios.get('http://192.168.1.109:3001/api');
+  //     setData(response.data);
+  //   } catch (error) {
+  //     console.log('Error:',error);
+  //   }
+  // }
+
+  const handlePress = item => {
+    navigation.navigate('Detail', {item});
+  };
+
+
+
+  const [isLoading, setLoading] = useState(true);
+  const [abc, setAbc] = useState([]);
+
+  const getMovies = async () => {
+    try {
+      const response = await fetch('http://192.168.1.109:3001/api/');
+      const json = await response.json();
+      setAbc(json.data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
     }
+  };
 
-    const handlePress = (item) => {
-      navigation.navigate('Detail', { title:item.title,description:item.description, level: item.level,date:item.date,point:item.point });
-    };
+  useEffect(() => {
+    getMovies();
+  }, []);
     
   return (
     <View style= {styles.container}>
       <ScrollView>
       <View >
-      {data.map((item) => (
+      {abc.map(item => (
         <TouchableOpacity key={item.id} onPress={()=> handlePress(item)}>   
         <View key={item.id} style={styles.mission}>
-          <Text style={styles.textMission}>{item.title}</Text>
-            <Text style={styles.textcc}><FontAwesome name="calendar" size={13} color="red" />{item.date}<Text>       Mức độ : {item.level}      </Text><Text>+{item.point}</Text> <Image
+          <Text style={styles.textMission}>{item.tenNV}</Text>
+            <Text style={styles.textcc}><Text>Mức độ : {item.level}      </Text><Text>+{item.point}</Text> <Image
           source={require('../assets/diem.png')} // Replace with your points icon image path
           style={styles.pointsIcon}
-        />  </Text>
+        />
+          </Text>
+        
           {/* Add more fields as needed */}
         </View>
         </TouchableOpacity>
@@ -92,6 +116,7 @@ const styles = StyleSheet.create({
         width: 350,
         height: 110,
         borderWidth : 1,
+        
         borderColor : '#fff',
         margin : 15,
         borderRadius : 20,
@@ -105,5 +130,6 @@ const styles = StyleSheet.create({
     textcc : {
         marginLeft : 15,
     },
+    
    
 })
