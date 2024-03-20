@@ -5,7 +5,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-const SIGNIN_API = 'http://192.168.0.234:3001/api/nguoi-dung/dang-nhap';
+const SIGNIN_API = 'http://192.168.0.105:3001/api/nguoi-dung/dang-nhap';
 
 const Login = (props) => {
     const { navigation } = props;
@@ -33,6 +33,8 @@ const Login = (props) => {
             if (response.status === 200) {
                 if (response.data) {
                     ToastAndroid.show('Đăng nhập thành công', ToastAndroid.SHORT);
+                    console.log(response.data.data._id);
+                    AsyncStorage.setItem('userId', response.data.data._id); 
 
 
                     navigation.replace('MainContainer')
